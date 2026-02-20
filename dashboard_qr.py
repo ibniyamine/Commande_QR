@@ -230,7 +230,7 @@ if len(df_filtre) > 0:
         montant_annee_precedente = donnees_annee_precedente['cmd_montant'].sum()
         
         variation_qr_annuel = calculate_variation(qr_annee_actuelle, qr_annee_precedente)
-        variation_montant_annuel = calculate_variation(montant_annee_actuelle, montant_annee_precedent)
+        variation_montant_annuel = calculate_variation(montant_annee_actuelle, montant_annee_precedente)
     else:
         variation_qr_annuel = 0
         variation_montant_annuel = 0
@@ -247,7 +247,7 @@ with col1:
                 unsafe_allow_html=True)
 
 with col2:
-    st.markdown(create_kpi_card("Montant Total (€)", total_montant, variation_montant_mensuel, "ce mois"), 
+    st.markdown(create_kpi_card("Montant Total", total_montant, variation_montant_mensuel, "ce mois"), 
                 unsafe_allow_html=True)
 
 with col3:
@@ -403,5 +403,4 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.markdown('<div style="text-align: center; color: #666; margin-top: 2rem;">', unsafe_allow_html=True)
-st.markdown("**Dashboard d'Analyse des Commandes QR** | Mis à jour en temps réel")
 st.markdown('</div>', unsafe_allow_html=True)
