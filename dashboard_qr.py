@@ -259,9 +259,18 @@ with col4:
                 unsafe_allow_html=True)
 
 with col5:
-    variation_globale = calculate_variation(total_montant, df['cmd_montant'].sum() * 0.8)  # Simulation
-    st.markdown(create_kpi_card("Variation Globale (%)", variation_globale, variation_globale, ""), 
-                unsafe_allow_html=True)
+    montant_global = df['cmd_montant'].sum()
+    variation_globale = (total_montant / montant_global) * 100 if montant_global > 0 else 0
+    st.markdown(
+        create_kpi_card(
+            "Part du Total Global (%)",
+            variation_globale,
+            variation_globale,
+            ""
+        ),
+        unsafe_allow_html=True
+    )
+
 
 # Visualisations
 st.markdown("## 📊 Visualisations Analytiques")
@@ -279,7 +288,7 @@ if len(df_filtre) > 0:
     recap_compagnie['cmd_montant'] = recap_compagnie['cmd_montant'].round(2)
     recap_compagnie.columns = ['Compagnie', 'Total QR', 'Montant Total (€)']
     
-    st.dataframe(recap_compagnie, use_container_width=True, hide_index=True)
+    st.dataframe(recap_compagnie, width='stretch', hide_index=True)
 else:
     st.warning("Aucune donnée disponible pour les filtres sélectionnés")
 st.markdown('</div>', unsafe_allow_html=True)
@@ -301,7 +310,7 @@ with col1:
             color_continuous_scale='viridis'
         )
         fig_hist.update_layout(xaxis_tickangle=-45)
-        st.plotly_chart(fig_hist, use_container_width=True)
+        st.plotly_chart(fig_hist, width='stretch')
     else:
         st.warning("Aucune donnée disponible")
     st.markdown('</div>', unsafe_allow_html=True)
@@ -326,7 +335,7 @@ with col2:
             line_shape='linear'
         )
         fig_evolution.update_layout(xaxis_tickangle=-45)
-        st.plotly_chart(fig_evolution, use_container_width=True)
+        st.plotly_chart(fig_evolution, width='stretch')
     else:
         st.warning("Aucune donnée disponible")
     st.markdown('</div>', unsafe_allow_html=True)
@@ -345,7 +354,7 @@ with col1:
             names='Compagnie',
             title="Répartition des commandes QR"
         )
-        st.plotly_chart(fig_pie_qr, use_container_width=True)
+        st.plotly_chart(fig_pie_qr, width='stretch')
     else:
         st.warning("Aucune donnée disponible")
     st.markdown('</div>', unsafe_allow_html=True)
@@ -367,7 +376,7 @@ with col2:
             color_continuous_scale='plasma'
         )
         fig_marche.update_layout(xaxis_tickangle=-45)
-        st.plotly_chart(fig_marche, use_container_width=True)
+        st.plotly_chart(fig_marche, width='stretch')
     else:
         st.warning("Aucune donnée disponible")
     st.markdown('</div>', unsafe_allow_html=True)
@@ -395,7 +404,7 @@ if len(df_filtre) > 0:
         markers=True
     )
     fig_tendance.update_layout(xaxis_tickangle=-45)
-    st.plotly_chart(fig_tendance, use_container_width=True)
+    st.plotly_chart(fig_tendance, width='stretch')
 else:
     st.warning("Aucune donnée disponible")
 st.markdown('</div>', unsafe_allow_html=True)
