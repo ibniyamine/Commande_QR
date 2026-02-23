@@ -286,7 +286,7 @@ if len(df_filtre) > 0:
     }).reset_index()
     recap_compagnie = recap_compagnie.sort_values('cmd_montant', ascending=False)
     recap_compagnie['cmd_montant'] = recap_compagnie['cmd_montant'].round(2)
-    recap_compagnie.columns = ['Compagnie', 'Total QR', 'Montant Total (€)']
+    recap_compagnie.columns = ['Compagnie', 'Total QR', 'Montant Total (FCFA)']
     
     st.dataframe(recap_compagnie, width='stretch', hide_index=True)
 else:
@@ -304,9 +304,9 @@ with col1:
         fig_hist = px.bar(
             recap_compagnie.head(10),
             x='Compagnie',
-            y='Montant Total (€)',
+            y='Montant Total (FCFA)',
             title="Top 10 des compagnies par montant",
-            color='Montant Total (€)',
+            color='Montant Total (FCFA)',
             color_continuous_scale='viridis'
         )
         fig_hist.update_layout(xaxis_tickangle=-45)
@@ -364,8 +364,8 @@ with col2:
     st.markdown("### Part de marché par montant")
     
     if len(df_filtre) > 0:
-        recap_compagnie['Part de marché (%)'] = (recap_compagnie['Montant Total (€)'] / 
-                                                 recap_compagnie['Montant Total (€)'].sum() * 100).round(2)
+        recap_compagnie['Part de marché (%)'] = (recap_compagnie['Montant Total (FCFA)'] / 
+                                                 recap_compagnie['Montant Total (FCFA)'].sum() * 100).round(2)
         
         fig_marche = px.bar(
             recap_compagnie.head(10),
